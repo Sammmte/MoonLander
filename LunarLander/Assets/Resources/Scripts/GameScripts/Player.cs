@@ -4,10 +4,32 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    protected float fuel = 100;
+    public delegate void OnReturningToMenu();
+
+    protected const float constFuel = 100;
+    protected float fuel = constFuel;
     protected float altitude;
-    protected float fuelModifier = 0.025f;
+    protected float fuelModifier = 0.03f;
     protected float yBottom;
+
+    protected bool fuelCharge = false;
+
+    protected bool win = false;
+    protected bool dead = false;
+
+    virtual protected void Impulse() { }
+    virtual protected void Rotate() { }
+
+    protected void GetDestroyed()
+    {
+        dead = true;
+        gameObject.SetActive(false);
+    }
+
+    protected void Win()
+    {
+        win = true;
+    }
 
     virtual public float GetHorizontalVelocity()
     {
@@ -27,5 +49,25 @@ public class Player : MonoBehaviour {
     public float GetAltitude()
     {
         return altitude;
+    }
+
+    public void SetFuelCharge()
+    {
+        fuelCharge = true;
+    }
+
+    protected void Full()
+    {
+        fuel = constFuel;
+    }
+
+    public bool IsDead()
+    {
+        return dead;
+    }
+
+    public bool HasWinned()
+    {
+        return win;
     }
 }

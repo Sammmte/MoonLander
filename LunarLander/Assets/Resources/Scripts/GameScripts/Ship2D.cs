@@ -8,9 +8,9 @@ public class Ship2D : Player {
 
     private Rigidbody2D rb;
 
-    private Vector2 landingWindow = new Vector2(0.5f, 0.5f);
+    private Vector2 landingWindow = new Vector2(0.35f, 0.35f);
     private Vector2 lastVel;
-    private float force = 3f;
+    private float force = 1.2f;
 
     // Use this for initialization
     void Start () {
@@ -22,16 +22,22 @@ public class Ship2D : Player {
 	
 	// Update is called once per frame
 	void Update () {
-
-        rb.AddTorque(-Input.GetAxis("Horizontal"));
-
+        Rotate();
         Impulse();
         CalculateAltitude();
     }
 
-    private void Impulse()
+    protected override void Rotate()
     {
-        rb.AddRelativeForce(new Vector2(0, Input.GetAxis("Vertical")) * force, ForceMode2D.Impulse);
+        rb.AddTorque(-Input.GetAxis("Horizontal"));
+    }
+
+    override protected void Impulse()
+    {
+        if(fuel > 0)
+        {
+            rb.AddRelativeForce(new Vector2(0, Input.GetAxis("Vertical")) * force, ForceMode2D.Impulse);
+        }
 
         if(Input.GetButton("Vertical"))
         {
@@ -41,8 +47,9 @@ public class Ship2D : Player {
         lastVel = rb.velocity;
     }
 
-    private void CheckCollision()
+    private void CheckCollision(Collision2D col)
     {
+        
         //si la velocidad no esta dentro de un margen de -1 a 1 en la x o la y...
         if ((lastVel.x < -landingWindow.x || lastVel.x > landingWindow.x) || (lastVel.y < -landingWindow.y || lastVel.y > landingWindow.y))
         {
@@ -50,15 +57,19 @@ public class Ship2D : Player {
         }
         else
         {
-            Debug.Log("Ganaste");
+            if (col.gameObject.GetComponent<FinalZone>() != null)
+            {
+                Win();
+            }
+
+            if (fuelCharge)
+            {
+                Full();
+            }
         }
     }
 
-    private void GetDestroyed()
-    {
-        Debug.Log("Perdiste");
-        gameObject.SetActive(false);
-    }
+    
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -68,7 +79,7 @@ public class Ship2D : Player {
         }
         else if(col.gameObject.GetComponent<SafeZone>() != null)
         {
-            CheckCollision();
+            CheckCollision(col);
         }
     }
 

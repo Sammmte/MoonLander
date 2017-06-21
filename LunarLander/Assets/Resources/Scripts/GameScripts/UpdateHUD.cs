@@ -18,15 +18,34 @@ public class UpdateHUD : MonoBehaviour {
     Text horizontalVel;
 
     [SerializeField]
+    Text finalText;
+
+    [SerializeField]
     Player player;
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update() {
 
         fuel.text = "Fuel: " + player.GetFuel().ToString();
         altitude.text = "Altitude: " + player.GetAltitude().ToString();
         verticalVel.text = "Vertical Velocity: " + player.GetVerticalVelocity().ToString();
         horizontalVel.text = "Horizontal Velocity: " + player.GetHorizontalVelocity().ToString();
 
-	}
+        CheckIsOver();
+
+    }
+
+    void CheckIsOver()
+    {
+        if (player.IsDead())
+        {
+            finalText.gameObject.SetActive(true);
+            finalText.text = "YOU LOSE";
+        }
+        else if (player.HasWinned())
+        {
+            finalText.gameObject.SetActive(true);
+            finalText.text = "REACHED";
+        }
+    }
 }
