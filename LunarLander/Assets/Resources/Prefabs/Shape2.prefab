@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4928926463520954}
   - component: {fileID: 212297419728079826}
   - component: {fileID: 68776654033720386}
-  - component: {fileID: 114463621789125174}
+  - component: {fileID: 114437559028621842}
   m_Layer: 0
   m_Name: Shape2
   m_TagString: Untagged
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4440810754891830}
   - component: {fileID: 68407236604198050}
-  - component: {fileID: 114194092914789392}
+  - component: {fileID: 114194032626257528}
   m_Layer: 0
   m_Name: SafeZone
   m_TagString: Untagged
@@ -142,7 +142,7 @@ EdgeCollider2D:
   - {x: 1.1721257, y: -0.6410516}
   - {x: 1.1545783, y: -1.2078174}
   - {x: 1.3664187, y: -1.5568734}
---- !u!114 &114194092914789392
+--- !u!114 &114194032626257528
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -150,10 +150,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1634670629888914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d25eb2798dcd0a242b4c538e552de1cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 0231a3d94a7c91f4ca528cbc5299adca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114463621789125174
+  num: 0
+--- !u!114 &114437559028621842
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -161,9 +162,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1197819823005458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395e6b4e4c2008e42afebad25fd69440, type: 3}
+  m_Script: {fileID: 11500000, guid: 0231a3d94a7c91f4ca528cbc5299adca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  num: 1
 --- !u!212 &212297419728079826
 SpriteRenderer:
   m_ObjectHideFlags: 1

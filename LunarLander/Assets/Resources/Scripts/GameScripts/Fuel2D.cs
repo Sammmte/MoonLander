@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fuel2D : MonoBehaviour {
+public class Fuel2D : GameEntity {
 
     Rigidbody2D rb;
 

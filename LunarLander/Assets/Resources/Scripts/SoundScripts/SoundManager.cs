@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class SoundManager {
 
@@ -17,6 +18,7 @@ public class SoundManager {
     private SoundManager() 
     {
         soundsList = new SoundsData();
+        SceneManager.sceneLoaded += Clear;
     }
 
     static public SoundManager GetInstance()
@@ -73,5 +75,13 @@ public class SoundManager {
     public float GetVolume()
     {
         return soundVolume;
+    }
+
+    void Clear(Scene current, LoadSceneMode m)
+    {
+        if (!Global.IsStartUp())
+        {
+            soundsList.Clear();
+        }
     }
 }

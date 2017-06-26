@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : GameEntity {
 
-    public delegate void OnReturningToMenu();
+    public delegate void OnWin();
+    public delegate void OnLose();
+
+    static public OnWin onWin;
+    static public OnLose onLose;
 
     protected const float constFuel = 100;
     protected float fuel = constFuel;
@@ -14,21 +18,14 @@ public class Player : MonoBehaviour {
 
     protected bool fuelCharge = false;
 
-    protected bool win = false;
-    protected bool dead = false;
-
-    virtual protected void Impulse() { }
-    virtual protected void Rotate() { }
+    virtual public void Impulse(float impulse) { }
+    virtual public void Rotate(float rotation) { }
 
     protected void GetDestroyed()
     {
-        dead = true;
         gameObject.SetActive(false);
-    }
 
-    protected void Win()
-    {
-        win = true;
+        onLose();
     }
 
     virtual public float GetHorizontalVelocity()
@@ -59,15 +56,5 @@ public class Player : MonoBehaviour {
     protected void Full()
     {
         fuel = constFuel;
-    }
-
-    public bool IsDead()
-    {
-        return dead;
-    }
-
-    public bool HasWinned()
-    {
-        return win;
     }
 }

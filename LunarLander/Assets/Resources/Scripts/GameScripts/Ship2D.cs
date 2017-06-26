@@ -22,64 +22,62 @@ public class Ship2D : Player {
 	
 	// Update is called once per frame
 	void Update () {
-        Rotate();
-        Impulse();
         CalculateAltitude();
     }
 
-    protected override void Rotate()
+    override public void Rotate(float rotation)
     {
-        rb.AddTorque(-Input.GetAxis("Horizontal"));
+        rb.AddTorque(-rotation);
     }
 
-    override protected void Impulse()
+    override public void Impulse(float impulse)
     {
         if(fuel > 0)
         {
-            rb.AddRelativeForce(new Vector2(0, Input.GetAxis("Vertical")) * force, ForceMode2D.Impulse);
-        }
+            rb.AddRelativeForce(new Vector2(0, impulse) * force, ForceMode2D.Impulse);
 
-        if(Input.GetButton("Vertical"))
-        {
-            fuel -= fuelModifier;
+            if (impulse > 0)
+            {
+                fuel -= fuelModifier;
+            }
         }
 
         lastVel = rb.velocity;
     }
 
-    private void CheckCollision(Collision2D col)
+    private void CheckCollision(string safeLevel)
     {
-        
-        //si la velocidad no esta dentro de un margen de -1 a 1 en la x o la y...
-        if ((lastVel.x < -landingWindow.x || lastVel.x > landingWindow.x) || (lastVel.y < -landingWindow.y || lastVel.y > landingWindow.y))
+        if(safeLevel == "Safe" || safeLevel == "Final")
+        {
+            //si la velocidad no esta dentro de un margen de -1 a 1 en la x o la y...
+            if ((lastVel.x < -landingWindow.x || lastVel.x > landingWindow.x) || (lastVel.y < -landingWindow.y || lastVel.y > landingWindow.y))
+            {
+                GetDestroyed();
+            }
+            else
+            {
+                if (safeLevel == "Final")
+                {
+                    onWin();
+                }
+
+                if (fuelCharge)
+                {
+                    Full();
+                }
+            }
+        }
+        else if(safeLevel == "Unsafe")
         {
             GetDestroyed();
-        }
-        else
-        {
-            if (col.gameObject.GetComponent<FinalZone>() != null)
-            {
-                Win();
-            }
-
-            if (fuelCharge)
-            {
-                Full();
-            }
         }
     }
 
-    
-
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.GetComponent<UnsafeZone>() != null)
+        if(col.gameObject.GetComponent<MapZone>() != null)
         {
-            GetDestroyed();
-        }
-        else if(col.gameObject.GetComponent<SafeZone>() != null)
-        {
-            CheckCollision(col);
+            CheckCollision(col.gameObject.GetComponent<MapZone>().GetSafeLevel().ToString());
         }
     }
 

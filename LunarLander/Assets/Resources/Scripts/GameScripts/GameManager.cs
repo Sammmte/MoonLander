@@ -1,48 +1,102 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager
 {
-    static private bool pause = false;
+    static private GameManager instance;
+    private HUD hud;
 
-    static public void Pause(Player player)
+    private List<GameEntity> sceneObjects;
+
+    private Timer toChangeLevel;
+    private const float changeLevelDelay = 2f;
+
+    private bool pause;
+
+    private GameManager()
     {
-        Rigidbody rb3D = player.GetComponent<Rigidbody>();
-        Rigidbody2D rb2D = player.GetComponent<Rigidbody2D>();
-        MonoBehaviour mono = player.GetComponent<MonoBehaviour>();
+        sceneObjects = new List<GameEntity>();
 
+        SceneManager.sceneLoaded += SetActiveHUD;
+        SceneManager.sceneLoaded += GetAllGameObjects;
+
+        toChangeLevel = new Timer();
+
+        Player.onWin = Win;
+        Player.onLose = Lose;
+    }
+
+    static public GameManager GetInstance()
+    {
+        if(instance == null)
+        {
+            instance = new GameManager();
+        }
+
+        return instance;
+    }
+
+    public void Pause()
+    {
         if(pause)
         {
-            mono.enabled = true;
-
-            if (rb2D != null)
+            foreach(GameEntity o in sceneObjects)
             {
-                rb2D.isKinematic = false;
-            }
-
-            if (rb3D != null)
-            {
-                rb3D.isKinematic = false;
+                o.gameObject.SetActive(true);
             }
 
             pause = false;
         }
         else
         {
-            mono.enabled = false;
-
-            if (rb2D != null)
+            foreach (GameEntity o in sceneObjects)
             {
-                rb2D.isKinematic = true;
-            }
-
-            if (rb3D != null)
-            {
-                rb3D.isKinematic = true;
+                o.gameObject.SetActive(false);
             }
 
             pause = true;
         }
+
+        hud.Pause();
     }
+
+    private void Win()
+    {
+        hud.SetFinalText(true);
+        toChangeLevel.Start(changeLevelDelay, NextLevel);
+    }
+
+    private void Lose()
+    {
+        hud.SetFinalText(false);
+        toChangeLevel.Start(changeLevelDelay, RestartLevel);
+    }
+
+    private void NextLevel()
+    {
+        Debug.Log("VAMOO");
+    }
+
+    private void RestartLevel()
+    {
+        Debug.Log("COÑOOO");
+    }
+
+    private void SetActiveHUD(Scene current, LoadSceneMode load)
+    {
+        hud = Object.FindObjectOfType<HUD>();
+    }
+
+    private void GetAllGameObjects(Scene current, LoadSceneMode load)
+    {
+        GameEntity[] aux = GameObject.FindObjectsOfType<GameEntity>();
+
+        foreach(GameEntity o in aux)
+        {
+            sceneObjects.Add(o);
+        }
+    }
+    
 }

@@ -8,8 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/Menu.unity
   - enabled: 1
-    path: Assets/Resources/Scenes/SimpleMode.unity
+    path: Assets/Resources/Scenes/2DMode.unity
   - enabled: 1
     path: Assets/Resources/Scenes/3DMode.unity
-  - enabled: 1
+  - enabled: 0
+    path: Assets/Resources/Scenes/SimpleMode.unity
+  - enabled: 0
     path: Assets/Resources/Scenes/RunMode.unity

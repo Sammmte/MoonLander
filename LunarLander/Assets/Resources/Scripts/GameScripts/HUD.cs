@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class UpdateHUD : MonoBehaviour {
+public class HUD : MonoBehaviour {
 
     [SerializeField]
     Text fuel;
@@ -21,7 +22,18 @@ public class UpdateHUD : MonoBehaviour {
     Text finalText;
 
     [SerializeField]
+    GameObject pausePanel;
+
+    string winText = "REACHED";
+    string loseText = "FAIL";
+
+    [SerializeField]
     Player player;
+
+    void Start()
+    {
+        finalText.gameObject.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update() {
@@ -30,22 +42,32 @@ public class UpdateHUD : MonoBehaviour {
         altitude.text = "Altitude: " + player.GetAltitude().ToString();
         verticalVel.text = "Vertical Velocity: " + player.GetVerticalVelocity().ToString();
         horizontalVel.text = "Horizontal Velocity: " + player.GetHorizontalVelocity().ToString();
-
-        CheckIsOver();
-
     }
 
-    void CheckIsOver()
+    public void SetFinalText(bool win)
     {
-        if (player.IsDead())
+        if(win)
         {
-            finalText.gameObject.SetActive(true);
-            finalText.text = "YOU LOSE";
+            finalText.text = winText;
         }
-        else if (player.HasWinned())
+        else
         {
-            finalText.gameObject.SetActive(true);
-            finalText.text = "REACHED";
+            finalText.text = loseText;
+        }
+
+        finalText.gameObject.SetActive(true);
+    }
+
+    public void Pause()
+    {
+        if(pausePanel.activeSelf)
+        {
+            pausePanel.SetActive(false);
+        }
+        else
+        {
+            pausePanel.SetActive(true);
         }
     }
+
 }

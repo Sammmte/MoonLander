@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class InitSoundManager : MonoBehaviour {
+public class GlobalManager : MonoBehaviour {
     
     SoundManager soundManager;
+    GameManager gameManager;
+    TimerManager timerManager;
 
 	void Awake()
     {
         Object.DontDestroyOnLoad(this.gameObject);
 
+        gameManager = GameManager.GetInstance();
+
         soundManager = SoundManager.GetInstance();
         soundManager.InitPreferences();
         soundManager.InstantiateAudio();
 
-        SceneManager.sceneLoaded += Clear;
+        timerManager = TimerManager.GetInstance();
     }
 
-    void Clear(Scene current, LoadSceneMode m)
+    void Update()
     {
-        if(!Global.IsStartUp())
-        {
-            Debug.Log("hola");
-            soundManager.soundsList.Clear();
-        }
+        timerManager.Update();
     }
 }
