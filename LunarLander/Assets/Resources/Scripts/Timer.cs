@@ -28,14 +28,10 @@ public class Timer {
 
     public void Update()
     {
-        Debug.Log("ESTA ANDANDOO");
-
         timeLeft -= Time.deltaTime;
 
         if(timeLeft <= 0)
         {
-            Debug.Log("FUNCIONA!");
-
             time = 0;
             timeLeft = 0;
             active = false;
@@ -51,5 +47,13 @@ public class Timer {
     public bool IsActive()
     {
         return active;
+    }
+
+    public void Cancel()
+    {
+        time = 0;
+        timeLeft = 0;
+        active = false;
+        callback = null;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 static public class Global {
 
@@ -12,6 +13,8 @@ static public class Global {
     static public int baseHeight = 768;
 
     static private bool isStartUp = true;
+
+    static private Timer startUpTimer;
 
     static public float RuleOfThree(float dat1, float dat2, float comp)
     {
@@ -36,12 +39,21 @@ static public class Global {
     {
         if(isStartUp)
         {
-            isStartUp = false;
+            if(startUpTimer == null)
+            {
+                startUpTimer = new Timer();
+                startUpTimer.Start(Time.deltaTime * 2, LockStartUp);
+            }
             return true;
         }
         else
         {
             return false;
         }
+    }
+
+    static private void LockStartUp()
+    {
+        isStartUp = false;
     }
 }

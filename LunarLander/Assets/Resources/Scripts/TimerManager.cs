@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TimerManager
 {
@@ -12,6 +13,7 @@ public class TimerManager
     private TimerManager()
     {
         timers = new List<Timer>();
+        SceneManager.sceneLoaded += onSceneLoaded;
     }
 
     static public TimerManager GetInstance()
@@ -40,4 +42,23 @@ public class TimerManager
         }
 
 	}
+
+    private void Clear()
+    {
+        foreach (Timer t in timers)
+        {
+            t.Cancel();
+        }
+
+        timers.Clear();
+    }
+
+    private void onSceneLoaded(Scene scene, LoadSceneMode load)
+    {
+        if(!Global.IsStartUp())
+        {
+            Debug.Log("Anduve :)");
+            Clear();
+        }
+    }
 }

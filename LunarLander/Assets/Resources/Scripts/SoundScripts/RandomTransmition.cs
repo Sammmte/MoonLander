@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomTransmition : MonoBehaviour {
 
-    private AudioSource audioSource;
+    private ComplexAudio audioSource;
 
     private int transmitionCant = 5;
 
@@ -13,8 +13,9 @@ public class RandomTransmition : MonoBehaviour {
     private int min = 0;
     private int max = 100;
 
-    private const float constTimer = 10f;
-    private float timer = constTimer;
+    private const float constTimer = 5f;
+
+    private Timer timer;
 
     SoundManager soundManager;
 
@@ -30,33 +31,23 @@ public class RandomTransmition : MonoBehaviour {
 
         soundManager = SoundManager.GetInstance();
 
-        audioSource = GetComponent<AudioSource>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-        if(GetTimer() <= 0)
-        { 
-            if(Global.IsPrime(Random.Range(min, max)))
-            {
-                int dis = (int)Random.Range(0, (float)transmitionCant - 0.01f);
+        audioSource = GetComponent<ComplexAudio>();
 
-                audioSource.PlayOneShot(soundManager.soundsList.RegisterAudio(transmitionKeywords[dis], audioSource));
-            }
-        }
+        timer = new Timer();
 
-	}
+        timer.Start(constTimer, Reproduce);
+    }
 
-    float GetTimer()
+    void Reproduce()
     {
-        if (timer <= 0)
+        if (Global.IsPrime(Random.Range(min, max)))
         {
-            timer = constTimer;
+            int dis = (int)Random.Range(0, (float)transmitionCant - 0.01f);
+            
+            if(audioSource.GetAudioSource().enabled)
+                audioSource.GetAudioSource().PlayOneShot(soundManager.GetAudioClipByName(transmitionKeywords[dis]));
         }
 
-        timer -= Time.deltaTime;
-
-        return timer;
+        timer.Start(constTimer, Reproduce);
     }
 }

@@ -7,18 +7,23 @@ using UnityEngine.SceneManagement;
 public class SoundManager {
 
     static private SoundManager instance;
+    List<ComplexAudio> activeSources;
 
     public SoundsData soundsList;
 
     private string soundKeyword = "sound";
     private string volumeKeyword = "volume";
+
     private bool soundOn;
     private float soundVolume;
 
     private SoundManager() 
     {
         soundsList = new SoundsData();
-        SceneManager.sceneLoaded += Clear;
+        soundsList.LoadAudio();
+        
+        SceneManager.sceneLoaded += SetNewAudios;
+        SceneManager.sceneLoaded += OnLoadedClips;
     }
 
     static public SoundManager GetInstance()
@@ -31,16 +36,28 @@ public class SoundManager {
         return instance;
     }
 
+    void SetActive(bool really)
+    {
+        foreach(ComplexAudio c in activeSources)
+        {
+            c.GetAudioSource().enabled = really;
+        }
+    }
+
+    void SetVolume(float value)
+    {
+        foreach (ComplexAudio c in activeSources)
+        {
+            c.GetAudioSource().volume = value;
+        }
+    }
+
     public void InitPreferences()
     {
         soundOn = Convert.ToBoolean(PlayerPrefs.GetInt(soundKeyword, 1));
         soundVolume = PlayerPrefs.GetFloat(volumeKeyword, 1);
     }
 
-    public void InstantiateAudio()
-    {
-        soundsList.InstantiateAudio();
-    }
 
     public void SoundOnOff()
     {
@@ -50,21 +67,22 @@ public class SoundManager {
         }
         else
         {
+            PlayClips();
             soundOn = true;
         }
 
         PlayerPrefs.SetInt(soundKeyword, Convert.ToInt32(soundOn));
 
-        soundsList.UpdateAudios();
+        SetActive(soundOn);
     }
 
-    public void SetSoundVolume(float value)
+    public void ChangeVolume(float value)
     {
         soundVolume = value;
 
         PlayerPrefs.SetFloat(volumeKeyword, value);
 
-        soundsList.UpdateAudios();
+        SetVolume(soundVolume);
     }
 
     public bool IsSoundActive()
@@ -77,11 +95,69 @@ public class SoundManager {
         return soundVolume;
     }
 
-    void Clear(Scene current, LoadSceneMode m)
+    void SetNewAudios(Scene current, LoadSceneMode m)
     {
         if (!Global.IsStartUp())
         {
-            soundsList.Clear();
+            Clear();
         }
+
+        if (activeSources == null)
+        {
+            activeSources = new List<ComplexAudio>();
+        }
+        
+
+        ComplexAudio[] aux = GameObject.FindObjectsOfType<ComplexAudio>();
+
+        foreach (ComplexAudio o in aux)
+        {
+            activeSources.Add(o);
+        }
+
+        AssignClips();
+    }
+
+    void PlayClips()
+    {
+        foreach (ComplexAudio c in activeSources)
+        {
+            c.GetAudioSource().Play();
+        }
+    }
+
+    void OnLoadedClips(Scene scene, LoadSceneMode load)
+    {
+        InitPreferences();
+
+        if(soundOn)
+        {
+            PlayClips();
+        }
+        else
+        {
+            SetActive(soundOn);
+        }
+
+        SetVolume(soundVolume);
+    }
+
+    void AssignClips()
+    {
+        foreach(ComplexAudio c in activeSources)
+        {
+            c.Init();
+            c.GetAudioSource().clip = soundsList.GetAudioClipByName(c.GetClipName());
+        }
+    }
+
+    void Clear()
+    {
+        activeSources.Clear();
+    }
+
+    public AudioClip GetAudioClipByName(string name)
+    {
+        return soundsList.GetAudioClipByName(name);
     }
 }

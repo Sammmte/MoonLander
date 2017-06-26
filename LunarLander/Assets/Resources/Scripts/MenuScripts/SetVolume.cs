@@ -15,6 +15,6 @@ public class SetVolume : MonoBehaviour {
 
     public void SetSoundVolume()
     {
-        SoundManager.GetInstance().SetSoundVolume(slider.value);
+        SoundManager.GetInstance().ChangeVolume(slider.value);
     }
 }

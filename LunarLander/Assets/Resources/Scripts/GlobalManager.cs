@@ -16,8 +16,6 @@ public class GlobalManager : MonoBehaviour {
         gameManager = GameManager.GetInstance();
 
         soundManager = SoundManager.GetInstance();
-        soundManager.InitPreferences();
-        soundManager.InstantiateAudio();
 
         timerManager = TimerManager.GetInstance();
     }

@@ -5,52 +5,22 @@ using UnityEngine;
 public class SoundsData {
 
     Object[] sounds;
-    List<AudioSource> activeSources;
-    SoundManager soundManager;
 
-    public SoundsData()
+    public void LoadAudio()
     {
-        activeSources = new List<AudioSource>();
-    }
-
-    public void InstantiateAudio()
-    {
-        soundManager = SoundManager.GetInstance();
         sounds = Resources.LoadAll("Sounds");
     }
 
-    public AudioClip RegisterAudio(string name, AudioSource source)
+    public AudioClip GetAudioClipByName(string name)
     {
-        foreach(AudioClip ad in sounds)
+        foreach(AudioClip a in sounds)
         {
-            if(ad.name == name)
+            if(a.name == name)
             {
-                activeSources.Add(source);
-                InitAudioSource(source);
-                return ad;
+                return a;
             }
         }
 
         return null;
-    }
-
-    private void InitAudioSource(AudioSource s)
-    {
-        s.enabled = soundManager.IsSoundActive();
-        s.volume = soundManager.GetVolume();
-    }
-
-    public void UpdateAudios()
-    {
-        foreach(AudioSource a in activeSources)
-        {
-            a.enabled = soundManager.IsSoundActive();
-            a.volume = soundManager.GetVolume();
-        }
-    }
-
-    public void Clear()
-    {
-        activeSources.Clear();
     }
 }
