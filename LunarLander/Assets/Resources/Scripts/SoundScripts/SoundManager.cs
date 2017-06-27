@@ -86,7 +86,7 @@ public class SoundManager {
     }
 
     public bool IsSoundActive()
-    {
+    { 
         return soundOn;
     }
 

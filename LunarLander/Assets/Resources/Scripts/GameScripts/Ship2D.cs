@@ -8,15 +8,16 @@ public class Ship2D : Player {
 
     private Rigidbody2D rb;
 
-    private Vector2 landingWindow = new Vector2(0.35f, 0.35f);
+    private float landingVel = 0.35f;
+    private Vector2 landingWindow;
     private Vector2 lastVel;
-    private float force = 1.2f;
+    private const float force = 1.2f;
 
     // Use this for initialization
     void Start () {
 
+        landingWindow = new Vector2(landingVel, landingVel);
         rb = GetComponent<Rigidbody2D>();
-
         yBottom = GetComponent<BoxCollider2D>().bounds.extents.y;
 	}
 	

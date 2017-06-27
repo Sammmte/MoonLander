@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212174417253113694}
   - component: {fileID: 68478889381704224}
   - component: {fileID: 114099654123314290}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shape6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4067350112583626}
   - component: {fileID: 68465960740820822}
   - component: {fileID: 114822391471652424}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SafeZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4520263061209536}
   - component: {fileID: 212227390551455310}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Safe
   m_TagString: Untagged
   m_Icon: {fileID: 0}

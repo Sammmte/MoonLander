@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager
 {
@@ -20,7 +21,7 @@ public class GameManager
         sceneObjects = new List<GameEntity>();
 
         SceneManager.sceneLoaded += SetActiveHUD;
-        SceneManager.sceneLoaded += GetAllGameObjects;
+        SceneManager.sceneLoaded += GetAllGameEntities;
 
         toChangeLevel = new Timer();
 
@@ -65,31 +66,50 @@ public class GameManager
     private void Win()
     {
         hud.SetFinalText(true);
+
+        if(!TimerManager.GetInstance().IsSubscribed(toChangeLevel))
+        {
+            toChangeLevel.AddToManager();
+        }
+
         toChangeLevel.Start(changeLevelDelay, NextLevel);
     }
 
     private void Lose()
     {
         hud.SetFinalText(false);
+
+        if (!TimerManager.GetInstance().IsSubscribed(toChangeLevel))
+        {
+            toChangeLevel.AddToManager();
+        }
+
         toChangeLevel.Start(changeLevelDelay, RestartLevel);
     }
 
     private void NextLevel()
     {
-        Debug.Log("VAMOO");
+        if(SceneManager.GetActiveScene().name == "2DLevel1")
+        {
+            SceneManager.LoadScene("2DLevel2");
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     private void RestartLevel()
     {
-        Debug.Log("COÑOOO");
+        SceneManager.LoadScene("Menu");
     }
 
     private void SetActiveHUD(Scene current, LoadSceneMode load)
     {
-        hud = Object.FindObjectOfType<HUD>();
+        hud = UnityEngine.Object.FindObjectOfType<HUD>();
     }
 
-    private void GetAllGameObjects(Scene current, LoadSceneMode load)
+    private void GetAllGameEntities(Scene current, LoadSceneMode load)
     {
         GameEntity[] aux = GameObject.FindObjectsOfType<GameEntity>();
 
@@ -98,5 +118,7 @@ public class GameManager
             sceneObjects.Add(o);
         }
     }
+
+
     
 }

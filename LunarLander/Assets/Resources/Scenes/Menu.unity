@@ -2754,7 +2754,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 760838953}
-        m_MethodName: To3DMode
+        m_MethodName: ToScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2800,6 +2800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1f1400555324341a35e66ae4c01169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 3DMode
 --- !u!1 &1018211338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3753,7 +3754,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1477908230}
-        m_MethodName: To2DMode
+        m_MethodName: ToScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3799,6 +3800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1f1400555324341a35e66ae4c01169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 2DLevel1
 --- !u!1 &1505869148
 GameObject:
   m_ObjectHideFlags: 0

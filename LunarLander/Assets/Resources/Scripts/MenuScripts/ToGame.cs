@@ -6,19 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class ToGame : GameButton
 {
-    public void To3DMode()
-    {
-        SceneManager.LoadScene("3DMode");
-    }
+    [SerializeField]
+    string sceneName;
 
-    public void To2DMode()
+    public void ToScene()
     {
-        SceneManager.LoadScene("2DMode");
+        SceneManager.LoadScene(sceneName);
     }
-
-    public void ToMenu()
-    {
-        SceneManager.LoadScene("Menu");
-    }
+       
 
 }

@@ -32,7 +32,7 @@ public class TimerManager
     }
 
 	public void Update () {
-		
+
         foreach(Timer t in timers)
         {
             if(t.IsActive())
@@ -57,8 +57,20 @@ public class TimerManager
     {
         if(!Global.IsStartUp())
         {
-            Debug.Log("Anduve :)");
             Clear();
         }
+    }
+
+    public bool IsSubscribed(Timer tim)
+    {
+        foreach (Timer t in timers)
+        {
+            if(t == tim)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

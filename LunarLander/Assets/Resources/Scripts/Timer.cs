@@ -24,6 +24,8 @@ public class Timer {
         callback = _callback;
 
         active = true;
+
+
     }
 
     public void Update()
@@ -55,5 +57,10 @@ public class Timer {
         timeLeft = 0;
         active = false;
         callback = null;
+    }
+
+    public void AddToManager()
+    {
+        TimerManager.GetInstance().AddTimer(this);
     }
 }

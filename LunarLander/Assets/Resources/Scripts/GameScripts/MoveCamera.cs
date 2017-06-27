@@ -12,8 +12,10 @@ public class MoveCamera : MonoBehaviour {
 
     private float force = 2500;
 
-	void OnTriggerStay2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
         rb.AddForce(direction * force);
     }
+
+    
 }
