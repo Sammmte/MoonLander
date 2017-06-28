@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Fuel2D : GameEntity {
 
@@ -33,8 +31,11 @@ public class Fuel2D : GameEntity {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent<Player>().SetFuelCharge();
+        if(!collision.GetComponent<Player>().HasCharge())
+        {
+            collision.GetComponent<Player>().SetFuelCharge();
 
-        gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
     }
 }

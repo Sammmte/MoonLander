@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +20,9 @@ public class HUD : MonoBehaviour {
     Text finalText;
 
     [SerializeField]
+    Image fuelLoaded;
+
+    [SerializeField]
     GameObject pausePanel;
 
     string winText = "REACHED";
@@ -33,6 +34,7 @@ public class HUD : MonoBehaviour {
     void Start()
     {
         finalText.gameObject.SetActive(false);
+        Player.onFuelChanged += ActiveFuelImage;
     }
 
     // Update is called once per frame
@@ -70,4 +72,8 @@ public class HUD : MonoBehaviour {
         }
     }
 
+    private void ActiveFuelImage()
+    {
+        fuelLoaded.gameObject.SetActive(!fuelLoaded.gameObject.activeSelf);
+    }
 }

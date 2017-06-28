@@ -3,48 +3,77 @@ DEVELOPER: SANTIAGO PEREZ
 
 MAIN MENU SKYBOX
 
-Source: Open Game Art
-Link: https://opengameart.org/content/space-skyboxes-0
+Source: 
+Open Game Art
+Link: 
+https://opengameart.org/content/space-skyboxes-0
 
-Thanks to: StumpyStrust
+Thanks to: 
+StumpyStrust
 
 
 MAIN MENU MOON TEXTURE
 AND NORMAL MAP
 
-Source: Planet Pixel Emporium
-Link: http://planetpixelemporium.com/earth.html
+Source: 
+Planet Pixel Emporium
+Link: 
+http://planetpixelemporium.com/earth.html
 
-Thanks to: Planet Pixel Emporium
+Thanks to: 
+Planet Pixel Emporium
 
 
 BACKGROUND DEATH RADIO SOUND
 
-Source: Sound Bible
-Link: http://soundbible.com/1113-Radio-Active.html
+Source: 
+Sound Bible
+Link: 
+http://soundbible.com/1113-Radio-Active.html
 
-Thanks to: Mike Koenig
+Thanks to: 
+Mike Koenig
 
 
 MAIN MENU MUSIC
 
-Source: Open Game Art
-Link: https://opengameart.org/content/space-1
+Source: 
+Open Game Art
+Link: 
+https://opengameart.org/content/space-1
 
-Thanks to: Alexandr Zhelanov
+Thanks to: 
+Alexandr Zhelanov
+
+2D MODE MUSIC
+
+Source: 
+Open Game Art
+Links:
+https://opengameart.org/content/enchanted-tiki-86
+https://opengameart.org/content/crystal-cave-song18
+
+Thanks to:
+cynicmusic
 
 
 2D MODE FONT
 
-Source: Da Font
-Link: http://www.dafont.com/es/minecraft.font
+Source: 
+Da Font
+Link: 
+http://www.dafont.com/es/minecraft.font
 
-Thanks to: Craftron Gaming
+Thanks to: 
+Craftron Gaming
 
 
 MENU FONT
 
-Source: Da Font
-Link: http://www.dafont.com/es/space-age.font
+Source: 
+Da Font
+Link: 
+http://www.dafont.com/es/space-age.font
 
-Thanks to: Justin Callaghan
+Thanks to: 
+Justin Callaghan

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
@@ -122,7 +121,10 @@ public class SoundManager {
     {
         foreach (ComplexAudio c in activeSources)
         {
-            c.GetAudioSource().Play();
+            if(c.GetAudioSource().clip != null)
+            {
+                c.GetAudioSource().Play();
+            }
         }
     }
 
@@ -159,5 +161,17 @@ public class SoundManager {
     public AudioClip GetAudioClipByName(string name)
     {
         return soundsList.GetAudioClipByName(name);
+    }
+
+    public void LoadComplexAudio(ComplexAudio c, string clipName, bool play)
+    {
+        c.GetAudioSource().clip = soundsList.GetAudioClipByName(clipName);
+
+        activeSources.Add(c);
+
+        if(play)
+        {
+            c.GetAudioSource().Play();
+        }
     }
 }

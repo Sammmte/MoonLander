@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : GameEntity {
 
     public delegate void OnWin();
     public delegate void OnLose();
+    public delegate void OnFuelChanged();
 
     static public OnWin onWin;
     static public OnLose onLose;
+    static public OnFuelChanged onFuelChanged;
 
     protected const float constFuel = 100;
     protected float fuel = constFuel;
@@ -48,13 +48,23 @@ public class Player : GameEntity {
         return altitude;
     }
 
+    public bool HasCharge()
+    {
+        return fuelCharge;
+    }
+
     public void SetFuelCharge()
     {
         fuelCharge = true;
+
+        onFuelChanged();
     }
 
     protected void Full()
     {
         fuel = constFuel;
+        fuelCharge = false;
+
+        onFuelChanged();
     }
 }
